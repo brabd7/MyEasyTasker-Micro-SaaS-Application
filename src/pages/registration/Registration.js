@@ -1,6 +1,7 @@
 import React from 'react';
 import InputAuth from '../../components/InputAuth';
 import { Link } from 'react-router-dom';
+import { validateAndSanitizeFormData } from '../../utils/form';
 
 const Registration = (props) => {
 
@@ -14,7 +15,7 @@ const Registration = (props) => {
         const confirmPassword = document.querySelector('.inputConfirmPassword').value;
 
         // Processus de vérification des entrées
-        
+        console.log(validateAndSanitizeFormData(username, email, password, confirmPassword))
     }
 
     return (
