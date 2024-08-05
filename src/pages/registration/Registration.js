@@ -2,6 +2,7 @@ import React from 'react';
 import InputAuth from '../../components/InputAuth';
 import { Link } from 'react-router-dom';
 import { inputCleaningProcess, validateInputEmail } from '../../utils/form';
+import { insertUser } from '../../services/firebase';
 
 const Registration = (props) => {
 
@@ -19,16 +20,29 @@ const Registration = (props) => {
         {
             // Enregistrer l'email
             email = document.querySelector('.inputEmail').value;
-            document.querySelector('.error').style.display = "none";
+            document.querySelector('.errorEmail').style.display = "none";
 
-            // Processus de nettoyage des entrées
-            const inputCleaningProcessCompleted = inputCleaningProcess({username: username, email: email, password: password, confirmPassword: confirmPassword});
-            console.log(inputCleaningProcessCompleted)
+            // Vérifier la correspondance des mots de passe
+            if (password === confirmPassword)
+            {
+                document.querySelector('.errorPassword').style.display = "none";
+
+                // Processus de nettoyage des entrées
+                const inputCleaningProcessCompleted = inputCleaningProcess({username: username, email: email, password: password});
+
+                // // Envoyer dans la base de données
+                // insertUser(inputCleaningProcessCompleted);
+            }
+            else 
+            {
+                // Afficher l'erreur
+                document.querySelector('.errorPassword').style.display = "block";
+            }
         }
         else 
         {
             // Afficher l'erreur
-            document.querySelector('.error').style.display = "block";
+            document.querySelector('.errorEmail').style.display = "block";
         }
     }
 
@@ -40,7 +54,8 @@ const Registration = (props) => {
                 <InputAuth icon="fa-solid fa-lock" type="password" placeholder="Mot de passe" className="inputPassword" />
                 <InputAuth icon="fa-solid fa-lock" type="password" placeholder="Confirmation du mot de passe" className="inputConfirmPassword" />
             </div>
-            <p className='error'>L'adresse électronique est invalide !</p>
+            <p className='errorEmail'>L'adresse électronique est invalide !</p>
+            <p className='errorPassword'>Les mots de passe ne sont pas identiques !</p>
             <button className='buttonSubmitAuthentification' onClick={handleSubmit}>Je m'inscris</button>
             <Link to='/'>Me connecter</Link>
         </div>

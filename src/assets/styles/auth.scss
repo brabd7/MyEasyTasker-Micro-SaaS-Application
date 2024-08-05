@@ -33,9 +33,10 @@
         gap: 10px;
     }
 
-    .error
+    .errorEmail, .errorPassword
     {
         color: #CB3258;
+        text-align: center;
         font-size: 0.9em;
         display: none;
     }
