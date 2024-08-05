@@ -1,10 +1,9 @@
 import React from 'react';
 import InputAuth from '../../components/InputAuth';
 import { Link } from 'react-router-dom';
-import { inputCleaningProcess, validateInputEmail } from '../../utils/form';
-import { insertUser } from '../../services/firebase';
+import { processRegistration } from '../../utils/processAuth';
 
-const Registration = (props) => {
+const Registration = () => {
 
     // Gérer la soumission du formulaire
     const handleSubmit = (event) => {
@@ -12,38 +11,10 @@ const Registration = (props) => {
         // Récupérer les valeurs
         const username = document.querySelector('.inputUsername').value;
         const password = document.querySelector('.inputPassword').value;
-        let email = null
+        const email = document.querySelector('.inputEmail').value;
         const confirmPassword = document.querySelector('.inputConfirmPassword').value;
 
-        // Vérifier la validité de l'email
-        if (validateInputEmail(document.querySelector('.inputEmail').value))
-        {
-            // Enregistrer l'email
-            email = document.querySelector('.inputEmail').value;
-            document.querySelector('.errorEmail').style.display = "none";
-
-            // Vérifier la correspondance des mots de passe
-            if (password === confirmPassword)
-            {
-                document.querySelector('.errorPassword').style.display = "none";
-
-                // Processus de nettoyage des entrées
-                const inputCleaningProcessCompleted = inputCleaningProcess({username: username, email: email, password: password});
-
-                // // Envoyer dans la base de données
-                // insertUser(inputCleaningProcessCompleted);
-            }
-            else 
-            {
-                // Afficher l'erreur
-                document.querySelector('.errorPassword').style.display = "block";
-            }
-        }
-        else 
-        {
-            // Afficher l'erreur
-            document.querySelector('.errorEmail').style.display = "block";
-        }
+        processRegistration(username, email, password, confirmPassword);
     }
 
     return (
