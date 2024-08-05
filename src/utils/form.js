@@ -16,14 +16,13 @@ export function validateInputEmail(value) {
     
     // Vérification si la valeur correspond au motif de l'email
     if (emailPattern.test(value)) {
-        document.querySelector('.errorEmail').style.display = "none"
-        return true;  // Email valide
+        removeError();
+        return true; 
     } else {
-        document.querySelector('.errorEmail').style.display = "block"
-        return false; // Email invalide
+        createError("L'adresse électronique est invalide !");
+        return false;
     }
 }
-
 
 // Fonction pour la validité des mots de passe
 export function validatePasswords(password, confirmPassword)
@@ -46,5 +45,30 @@ export function validatePasswords(password, confirmPassword)
 // Fonction pour créer un paragraphe d'erreur
 export function createError(string)
 {
-    
+    if (!document.querySelector('.error'))
+    {
+        // Créer un nouvel élément <p>
+        const error = document.createElement('p');
+
+        // Définir le texte du paragraphe
+        error.textContent = string;
+
+        // Définir une classe
+        error.classList.add('error');
+
+        // Trouver l'élément avec la classe 'form'
+        const formElement = document.querySelector('.form');
+
+        // Ajouter le nouvel élément <p> juste après l'élément avec la classe 'form'
+        formElement.parentNode.insertBefore(error, formElement.nextSibling);
+    }
+}
+
+// Fonction pour supprimer une erreur
+export function removeError()
+{
+    if (document.querySelector('.error'))
+    {
+        document.querySelector('.error').remove();
+    }
 }
