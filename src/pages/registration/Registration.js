@@ -26,7 +26,8 @@ const Registration = () => {
                 <InputAuth icon="fa-solid fa-lock" type="password" placeholder="Confirmation du mot de passe" className="inputConfirmPassword" />
             </div>
             <p className='errorEmail'>L'adresse électronique est invalide !</p>
-            <p className='errorPassword'>Les mots de passe ne sont pas identiques !</p>
+            <p className='errorPasswordMismatch'>Les mots de passe ne sont pas identiques !</p>
+            <p className='errorPasswordMismatch'>Les mots de passe ne sont pas identiques !</p>
             <button className='buttonSubmitAuthentification' onClick={handleSubmit}>Je m'inscris</button>
             <Link to='/'>Me connecter</Link>
         </div>

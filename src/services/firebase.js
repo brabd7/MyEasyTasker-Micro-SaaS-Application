@@ -10,6 +10,6 @@ export function insertUser(user)
 export function getAllUsers()
 {
     axios.get(process.env.REACT_APP_FIREBASE + '/users.json')
-    .then((res) => console.log(res.data))
+    .then((res) => res.data)
     .catch((error) => console.log(error))
 }

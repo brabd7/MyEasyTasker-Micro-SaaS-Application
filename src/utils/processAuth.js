@@ -9,5 +9,11 @@ export function processRegistration(username, email, password, confirmPassword)
     const escapePassword = escapeHtml(password);
     const escapeConfirmPassword = escapeHtml(confirmPassword);
 
-    getAllUsers()
+    // Vérifier que l'email est valide 
+    if (validateInputEmail(escapeEmail))
+    {
+        console.log('ok')
+    }
 }
+
+
