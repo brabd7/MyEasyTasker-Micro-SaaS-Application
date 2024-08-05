@@ -9,16 +9,6 @@ function escapeHtml(html)
     return html;
 }
 
-// Fonction pour valider les entrées de base
-function validateInputString(value, type) 
-{
-    // Validation de base pour les chaînes de caractères
-    if (typeof value !== 'string' || value.trim().length === 0) {
-        return false;
-    }
-    return true;
-}
-
 // Fonction pour valider les emails
 export function validateInputEmail(value)
 {
@@ -34,9 +24,10 @@ export function inputCleaningProcess(elements)
     
     // Pour chaque clé dans l'objet 'elements'
     for (const key in elements) {
-        const escapeElement = escapeHtml(elements[key]);
 
-        console.log(typeof escapeElement)
+        // Fonction pour échapper les caractères HTML afin de prévenir les attaques XSS
+        inputs[key] = escapeHtml(elements[key]);
+
     }
 
     return inputs;
