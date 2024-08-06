@@ -13,3 +13,4 @@ export function getAllUsers()
     .then((res) => res.data)
     .catch((error) => console.log(error))
 }
+

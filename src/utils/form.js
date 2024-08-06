@@ -30,15 +30,25 @@ export function validatePasswords(password, confirmPassword)
     // Nombre de caractères du mot de passe
     if (password.length >= 8)
     {
+        // Supprimer l'erreur si elle existe
+        removeError();
+
         // Vérifier la correspondance des mots de passe
         if (password === confirmPassword)
         {
-            console.log('ok')
+            removeError();
+            return true;
+        }
+        else 
+        {
+            createError('Les mots de passe ne correspondent pas !')
+            return false;
         }
     }
     else 
     {
-        console.log("Mot de passe doit faire 8 caractères")
+        createError('Le mot de passe doit faire 8 caractères !')
+        return false;
     }
 }
 
