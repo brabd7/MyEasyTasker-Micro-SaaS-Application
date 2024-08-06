@@ -28,7 +28,7 @@ export function validateInputEmail(value) {
 export function validatePasswords(password, confirmPassword)
 {
     // Nombre de caractères du mot de passe
-    if (password.length >= 8)
+    if (password.length >= 1)
     {
         // Supprimer l'erreur si elle existe
         removeError();

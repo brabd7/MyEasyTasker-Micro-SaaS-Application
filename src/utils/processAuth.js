@@ -1,5 +1,5 @@
-import { escapeHtml, validateInputEmail, validatePasswords } from "./form";
-import {insertUser, getAllUsers} from '../services/firebase';
+import { createError, escapeHtml, removeError, validateInputEmail, validatePasswords } from "./form";
+import {getUserWithUsername, notExistUser} from '../services/firebase';
 
 export function processRegistration(username, email, password, confirmPassword)
 {
@@ -12,9 +12,14 @@ export function processRegistration(username, email, password, confirmPassword)
     // Vérifier que l'email est valide 
     if (validateInputEmail(escapeEmail))
     {
+        // Vérifier la validité des mots de passe
         if (validatePasswords(escapePassword, escapeConfirmPassword))
         {
-            console.log('olk')
+            // Vérifier que le nom d'utilisateur n'existe pas
+            if (notExistUser(escapeUsername))
+            {
+                console.log('ok')
+            }
         }
     }
 }
