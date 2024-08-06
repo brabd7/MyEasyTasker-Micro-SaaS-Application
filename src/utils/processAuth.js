@@ -1,5 +1,5 @@
 import { createError, escapeHtml, removeError, validateInputEmail, validatePasswords } from "./form";
-import {getUserWithUsername, notExistUser} from '../services/firebase';
+import {getUserWithEmail, getUserWithUsername, insertUser} from '../services/firebase';
 
 export function processRegistration(username, email, password, confirmPassword)
 {
@@ -16,10 +16,37 @@ export function processRegistration(username, email, password, confirmPassword)
         if (validatePasswords(escapePassword, escapeConfirmPassword))
         {
             // Vérifier que le nom d'utilisateur n'existe pas
-            if (notExistUser(escapeUsername))
-            {
-                console.log('ok')
-            }
+            getUserWithUsername(escapeUsername)
+            .then((user) => {
+                if (!user)
+                {
+                    // Supprimer l'erreur s'il y en a une
+                    removeError();
+
+                    // Vérifier que l'adresse email n'existe pas
+                    getUserWithEmail(escapeEmail)
+                    .then((user) => {
+                        if (!user)
+                        {
+                            // Supprimer l'erreur s'il y en a une
+                            removeError();
+
+                            // Insérer dans la base de données l'utilisateur
+                            insertUser({username: escapeUsername, email: escapeEmail, password: escapePassword});
+                        }
+                        else 
+                        {
+                            createError("L'adresse électronique existe déjà !");
+                        }
+                    })
+                    .catch((error) => console.log(error))
+                }
+                else 
+                {
+                    createError("Le nom d'utilisateur existe déjà !");
+                }
+            })
+            .catch((error) => console.log(error))
         }
     }
 }
