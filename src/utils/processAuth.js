@@ -58,3 +58,43 @@ export function processRegistration(username, email, password, confirmPassword, 
         }
     }
 }
+
+export function processLogin(username, password, navigate)
+{
+    // Échapper aux caractères HTML
+    const escapeUsername = escapeHtml(username);
+    const escapePassword = escapeHtml(password);
+
+    // Rechercher l'utilisateur dans la base de données
+    getUserWithUsername(username)
+    .then((user) => {
+        if (user)
+        {
+            // Supprimer l'erreur s'il y en a une
+            removeError();
+
+            // Vérifier la validité du mot de passe s'il correspond à celui récupéré dans la bdd
+            bcrypt.compare(escapePassword, user.password)
+            .then((success) => {
+                if (success)
+                {
+                    // Supprimer l'erreur s'il y en a une
+                    removeError();
+
+                    // Rediriger vers /main
+                    navigate('/main');
+                }
+                else 
+                {
+                    createError("Le nom d'utilisateur ou le mot de passe est incorrect !");
+                }
+            })
+            .catch((error) => console.log(error))
+        }
+        else 
+        {
+            createError("Le nom d'utilisateur ou le mot de passe est incorrect !");
+        }
+    })
+    .catch((error) => console.log(error))
+}
