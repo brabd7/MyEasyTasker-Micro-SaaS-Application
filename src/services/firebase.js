@@ -47,3 +47,15 @@ export function getUserWithEmail(email)
     })
     .catch((error) => console.log(error))
 }
+
+export function generateCookie()
+{
+    // Utilisation de crypto pour obtenir un ArrayBuffer aléatoire
+    const array = new Uint8Array(32); // Vous pouvez ajuster la taille selon vos besoins
+    window.crypto.getRandomValues(array);
+
+    // Conversion du ArrayBuffer en chaîne hexadécimale
+    const token = Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+
+    return token;
+}

@@ -1,6 +1,7 @@
 import { createError, escapeHtml, removeError, validateInputEmail, validatePasswords } from "./form";
-import { getUserWithEmail, getUserWithUsername, insertUser } from '../services/firebase';
+import { getUserWithEmail, getUserWithUsername, insertUser, generateCookie } from '../services/firebase';
 import bcrypt from 'bcryptjs';
+import Cookies from 'js-cookie';
 
 export function processRegistration(username, email, password, confirmPassword, navigate) {
 
@@ -37,7 +38,7 @@ export function processRegistration(username, email, password, confirmPassword, 
                             removeError();
 
                             // Insérer dans la base de données l'utilisateur
-                            insertUser({ username: escapeUsername, email: escapeEmail, password: hashPassword });
+                            insertUser({ username: escapeUsername, email: escapeEmail, password: hashPassword, userId: generateCookie()});
                             
                             // Aller vers la page de login
                             navigate('/login');
@@ -59,8 +60,7 @@ export function processRegistration(username, email, password, confirmPassword, 
     }
 }
 
-export function processLogin(username, password, navigate)
-{
+export function processLogin(username, password, navigate) {
     // Échapper aux caractères HTML
     const escapeUsername = escapeHtml(username);
     const escapePassword = escapeHtml(password);
@@ -81,6 +81,9 @@ export function processLogin(username, password, navigate)
                     // Supprimer l'erreur s'il y en a une
                     removeError();
 
+                    // Créer un cookie de session après une connexion réussie
+                    Cookies.set('userId', user.userId, { expires: 1 });
+
                     // Rediriger vers /main
                     navigate('/main');
                 }
@@ -98,3 +101,4 @@ export function processLogin(username, password, navigate)
     })
     .catch((error) => console.log(error))
 }
+
