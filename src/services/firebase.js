@@ -1,5 +1,4 @@
 import axios from "axios";
-import { createError, removeError } from "../utils/form";
 
 export function insertUser(user)
 {
@@ -19,12 +18,15 @@ export function getUserWithUsername(username)
 {
     return getAllUsers()
     .then((users) => {
-        // Convert the users object to an array
-        const usersArray = Object.values(users);
+        if (users)
+        {
+            // Convert the users object to an array
+            const usersArray = Object.values(users);
 
-        // Find the user with the specified username
-        const user = usersArray.find(user => user.username === username);
-        return user;
+            // Find the user with the specified username
+            const user = usersArray.find(user => user.username === username);
+            return user;
+        }
     })
     .catch((error) => console.log(error))
 }
@@ -33,12 +35,15 @@ export function getUserWithEmail(email)
 {
     return getAllUsers()
     .then((users) => {
-        // Convert the users object to an array
-        const usersArray = Object.values(users);
+        if (users)
+        {
+            // Convert the users object to an array
+            const usersArray = Object.values(users);
 
-        // Find the user with the specified email
-        const user = usersArray.find(user => user.email === email);
-        return user;
+            // Find the user with the specified email
+            const user = usersArray.find(user => user.email === email);
+            return user;
+        }
     })
     .catch((error) => console.log(error))
 }
