@@ -10,6 +10,7 @@ const Routing = () => {
             <Routes>
             <Route path="/" element={<Authentification />}>
                 <Route path="/" element={<Login />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="/registration" element={<Registration />} />
             </Route>
             </Routes>

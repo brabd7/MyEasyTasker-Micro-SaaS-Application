@@ -2,8 +2,11 @@ import React from 'react';
 import InputAuth from '../../components/InputAuth';
 import { Link } from 'react-router-dom';
 import { processRegistration } from '../../utils/processAuth';
+import { useNavigate } from 'react-router-dom';
 
 const Registration = () => {
+
+    const navigate = useNavigate();
 
     // Gérer la soumission du formulaire
     const handleSubmit = (event) => {
@@ -14,7 +17,7 @@ const Registration = () => {
         const email = document.querySelector('.inputEmail').value;
         const confirmPassword = document.querySelector('.inputConfirmPassword').value;
 
-        processRegistration(username, email, password, confirmPassword);
+        processRegistration(username, email, password, confirmPassword, navigate);
     }
 
     return (

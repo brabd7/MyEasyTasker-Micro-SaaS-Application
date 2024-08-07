@@ -2,7 +2,7 @@ import { createError, escapeHtml, removeError, validateInputEmail, validatePassw
 import { getUserWithEmail, getUserWithUsername, insertUser } from '../services/firebase';
 import bcrypt from 'bcryptjs';
 
-export function processRegistration(username, email, password, confirmPassword) {
+export function processRegistration(username, email, password, confirmPassword, navigate) {
 
     // Échapper aux caractères HTML
     const escapeUsername = escapeHtml(username);
@@ -38,6 +38,9 @@ export function processRegistration(username, email, password, confirmPassword) 
 
                             // Insérer dans la base de données l'utilisateur
                             insertUser({ username: escapeUsername, email: escapeEmail, password: hashPassword });
+                            
+                            // Aller vers la page de login
+                            navigate('/login');
                         } 
                         else 
                         {
