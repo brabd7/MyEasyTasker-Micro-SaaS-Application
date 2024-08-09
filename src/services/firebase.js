@@ -48,6 +48,23 @@ export function getUserWithEmail(email)
     .catch((error) => console.log(error))
 }
 
+export function getUserWithUserId(userId)
+{
+    return getAllUsers()
+    .then((users) => {
+        if (users)
+        {
+            // Convert the users object to an array
+            const usersArray = Object.values(users);
+
+            // Find the user with the specified email
+            const user = usersArray.find(user => user.userId === userId);
+            return user;
+        }
+    })
+    .catch((error) => console.log(error))
+}
+
 export function generateCookie()
 {
     // Utilisation de crypto pour obtenir un ArrayBuffer aléatoire

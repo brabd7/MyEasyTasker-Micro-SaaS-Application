@@ -1,0 +1,54 @@
+#Main 
+{
+    padding: 0px 50px;
+    font-family: Inter;
+}
+
+#HeaderMain 
+{
+    padding: 25px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .left 
+    {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-weight: 600;
+        font-size: 0.8em;
+    }
+
+    .right
+    {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+
+        .addNoteButton
+        {
+            background-color: #CB3258;
+            color: #f2f2f2;
+
+            i 
+            {
+                font-size: 0.9em;
+                color: #f2f2f2;
+            }
+
+            p 
+            {
+                font-size: 0.8em;
+                font-weight: 420;
+            }
+        }
+
+        i 
+        {
+            color: #CB3258;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+    }
+}

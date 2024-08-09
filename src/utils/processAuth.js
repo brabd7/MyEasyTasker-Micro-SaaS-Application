@@ -62,7 +62,6 @@ export function processRegistration(username, email, password, confirmPassword, 
 
 export function processLogin(username, password, navigate) {
     // Échapper aux caractères HTML
-    const escapeUsername = escapeHtml(username);
     const escapePassword = escapeHtml(password);
 
     // Rechercher l'utilisateur dans la base de données
