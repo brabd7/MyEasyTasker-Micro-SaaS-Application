@@ -5,10 +5,33 @@ import { getUserWithUserId } from '../../services/firebase';
 import Cookies from 'js-cookie';
 
 const Main = () => {
+
     const [user, setUser] = useState(null);
 
-    // Récupérons les données de l'utilisateur
+    function verifyUserId()
+    {
+        if (Cookies.get('userId'))
+        {
+            getUserWithUserId(Cookies.get('userId'))
+            .then((user) => {
+                if (!user)
+                {
+                    window.location.href = '/';
+                }
+            })
+            .catch((error) => console.log(error))
+        }
+        else 
+        {
+            window.location.href = '/';
+        }
+    }
+
     useEffect(() => {
+        // Vérifier que le cookie UserId existe bien et correspond à un utilisateur
+        verifyUserId()
+
+        // Récupérer l'utilisateur
         const fetchUser = async () => {
             try {
                 const userId = Cookies.get('userId');
@@ -22,7 +45,7 @@ const Main = () => {
         };
 
         fetchUser();
-    }, []); // Le tableau de dépendances vide assure que l'effet est exécuté uniquement une fois au montage
+    }, []);
 
     return (
         <div id='Main'>

@@ -1,10 +1,9 @@
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
 
-export function logout()
-{
+export function logout() {
     // Supprimer le cookie userId
     Cookies.remove('userId');
 
-    // Aller à la page de login
-    window.location.reload();
+    // Rediriger vers la racine
+    window.location.href = '/';
 }

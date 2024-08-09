@@ -84,7 +84,7 @@ export function processLogin(username, password, navigate) {
                     Cookies.set('userId', user.userId, { expires: 1 });
 
                     // Rediriger vers /main
-                    navigate('/main');
+                    window.location.href = '/main';
                 }
                 else 
                 {
